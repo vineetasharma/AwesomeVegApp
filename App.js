@@ -1,6 +1,6 @@
 import React from 'react';
 let loader = require('./src/images/loader.gif');
-import { StyleSheet, Text, View, Image, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Image, FlatList, TouchableOpacity, Alert } from 'react-native';
 
 const data = [
   { title: 'View All Available Veg' },
@@ -19,7 +19,18 @@ export default class App extends React.Component {
         <Image source={loader} resizeMode="cover" style={{ height: "80%", width: "90%" }}></Image>
         <FlatList
           data={data}
-          renderItem={({ item }) => <Text>{item.title}</Text>}
+          keyExtractor={(item, index) => (index+item.title)}
+          renderItem={({item}) => (
+            <View style={{margin: 10}}>
+            <TouchableOpacity onPress={()=>{
+              console.log('You clieclked---------',item);
+              Alert.alert(item.title)
+            }}
+            >
+              <Text>{item.title}</Text>
+            </TouchableOpacity>
+          </View>
+          )}
         />
       </View>
     );
